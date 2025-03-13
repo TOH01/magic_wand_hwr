@@ -12,6 +12,7 @@
 
 // Include the model
 #include "circle_detector_model.h"
+#include "normalization_params.h"
 
 // Constants
 #define NUM_SAMPLES 75
@@ -36,10 +37,10 @@ int sample_index = 0;
 bool buffer_filled = false;
 
 // Normalization parameters (update with values from training)
-float acc_mean = 0.0f;
-float acc_std = 1.0f;
-float gyro_mean = 0.0f;
-float gyro_std = 1.0f;
+float acc_mean = ACC_MEAN;
+float acc_std = ACC_STD;
+float gyro_mean = GYRO_MEAN;
+float gyro_std = GYRO_STD;
 
 // Timing variables
 unsigned long last_sample_time = 0;
