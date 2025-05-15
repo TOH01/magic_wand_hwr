@@ -1,0 +1,26 @@
+{
+    "motions": [
+        {
+            "name": "circle",
+            "data_path": "tests/circle_test_data.txt",
+            "label": 1
+        },
+        {
+            "name": "square",
+            "data_path": "tests/square_test_data.txt",
+            "label": 2
+        },
+        {
+            "name": "square",
+            "data_path": "tests/square_test_data.txt",
+            "label": 3
+        },
+        {
+            "name": "random",
+            "data_path": "tests/random_test_data.txt",
+            "label": 0
+        }
+    ],
+    "sample_rate": 75,
+    "motion_duration": 2.0
+}
