@@ -1,12 +1,11 @@
 #include "Arduino_BMI270_BMM150.h"
-#include "data_gather.h"
 
 /*
  * DEFINES
  *****************************/
-#define SAMPLE_RATE 75     // amount of samples that should be taken per second, max IMU can provide seems to be around 100
-#define COLLECTION_TIME 10 // time in seconds, of how long samples should be taken for
-#define G_THRESHOLD 2.5    // amount of g experienced by IMU, to start data collection
+#define SAMPLE_RATE 75    // amount of samples that should be taken per second, max IMU can provide seems to be around 100
+#define COLLECTION_TIME 2 // time in seconds, of how long samples should be taken for
+#define G_THRESHOLD 2.5   // amount of g experienced by IMU, to start data collection
 
 #define NUM_SAMPLES ((int)(SAMPLE_RATE * COLLECTION_TIME)) // total amount of single data entries, that will be taken during collection process
 
@@ -19,7 +18,8 @@
 /*
  * GLOBALS
  *****************************/
-sample_t samples[NUM_SAMPLES];
+float aX_buff[NUM_SAMPLES], aY_buff[NUM_SAMPLES], aZ_buff[NUM_SAMPLES];
+float gX_buff[NUM_SAMPLES], gY_buff[NUM_SAMPLES], gZ_buff[NUM_SAMPLES];
 
 float aX, aY, aZ, gX, gY, gZ;
 
@@ -117,12 +117,12 @@ void loop()
       IMU.readAcceleration(aX, aY, aZ);
       IMU.readGyroscope(gX, gY, gZ);
 
-      samples[sampleIndex].ax = aX;
-      samples[sampleIndex].ay = aY;
-      samples[sampleIndex].az = aZ;
-      samples[sampleIndex].gx = gX;
-      samples[sampleIndex].gy = gY;
-      samples[sampleIndex].gz = gZ;
+      aX_buff[sampleIndex] = aX;
+      aY_buff[sampleIndex] = aY;
+      aZ_buff[sampleIndex] = aZ;
+      gX_buff[sampleIndex] = gX;
+      gY_buff[sampleIndex] = gY;
+      gZ_buff[sampleIndex] = gZ;
 
       sampleIndex++;
     }
@@ -139,17 +139,17 @@ void loop()
     Serial.println("aX,aY,aZ,gX,gY,gZ");
     for (int i = 0; i < sampleIndex; i++)
     {
-      Serial.print(samples[sampleIndex].ax, 3);
+      Serial.print(aX_buff[i], 3);
       Serial.print(",");
-      Serial.print(samples[sampleIndex].ay, 3);
+      Serial.print(aY_buff[i], 3);
       Serial.print(",");
-      Serial.print(samples[sampleIndex].az, 3);
+      Serial.print(aZ_buff[i], 3);
       Serial.print(",");
-      Serial.print(samples[sampleIndex].gx, 3);
+      Serial.print(gX_buff[i], 3);
       Serial.print(",");
-      Serial.print(samples[sampleIndex].gy, 3);
+      Serial.print(gY_buff[i], 3);
       Serial.print(",");
-      Serial.print(samples[sampleIndex].gz, 3);
+      Serial.print(gZ_buff[i], 3);
       Serial.println();
     }
 

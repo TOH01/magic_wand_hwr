@@ -1,0 +1,29 @@
+{
+    "motions": [
+        {
+            "name": "circle",
+            "data_path": "../../data/raw/training/circle/circle_2_0.txt",
+            "label": 1
+        },
+        {
+            "name": "rectangle",
+            "data_path": "../../data/raw/training/rectangle/rectangle_2_0.txt",
+            "label": 2
+        },
+        {
+            "name": "square",
+            "data_path": "../../data/raw/training/square/square_2_0.txt",
+            "label": 3
+        },
+        {
+            "name": "random",
+            "data_path": "../../data/raw/training/random/random_data.txt",
+            "label": 0
+        }
+    ],
+    "window_size": 75,
+    "motion_duration": 2.0,
+    "output_dir": "../../output/",
+    "epochs": 10,
+    "batch_size": 32
+}
