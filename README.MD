@@ -1,3 +1,4 @@
+[![Python Tests](https://github.com/TOH01/magic_wand_hwr/actions/workflows/python-tests.yml/badge.svg)](https://github.com/TOH01/magic_wand_hwr/actions/workflows/python-tests.yml)
 
 # TinyML Project for HWR (Hardware Recognition)
 
