@@ -10,7 +10,7 @@ import json
 
 class TestLoadMotionData(unittest.TestCase):
     def test_load_motion_data(self):
-        test_file = os.path.join(os.path.dirname(__file__), 'data_for_tests.txt')
+        test_file = os.path.join(os.path.dirname(__file__), 'training_data/data_for_tests.txt')
 
         expected_data: List[List[float]] = [
             [0.569, -0.370, 2.741, -126.099, 49.622, 49.927],
@@ -34,7 +34,7 @@ class TestCreateWindows(unittest.TestCase):
     def test_create_windows_basic(self):
         # Use loaded data from file as base
         
-        test_file = os.path.join(os.path.dirname(__file__), 'data_for_tests.txt')
+        test_file = os.path.join(os.path.dirname(__file__), 'training_data/data_for_tests.txt')
 
         data = load_motion_data(test_file)
 
@@ -101,7 +101,7 @@ class TestLoadDatasetFromConfigDict(unittest.TestCase):
         expected_label = test_motion["label"]
         
         # Load file directly, to avoid path issues
-        test_file = os.path.join(os.path.dirname(__file__), "circle_test_data.txt")
+        test_file = os.path.join(os.path.dirname(__file__), "training_data/circle_test_data.txt")
         raw_data = load_motion_data(test_file)
 
         expected_windows = create_windows(raw_data, config["sample_rate"], config["motion_duration"])

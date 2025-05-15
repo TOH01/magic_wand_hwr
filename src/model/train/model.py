@@ -51,7 +51,8 @@ def train_model(X: np.ndarray, y: np.ndarray, epochs=10, batch_size=32):
     num_classes = len(set(y))
 
     model = build_model(window_size, num_features, num_classes)
-    model.fit(X, y, epochs=epochs, batch_size=batch_size, validation_split=0.2)
+    history = model.fit(X, y, epochs=epochs, batch_size=batch_size, validation_split=0.2)
+    print(history.history)         
 
     return model
 

@@ -49,7 +49,7 @@ def create_full_model_from_config(config: Dict):
     # Convert data and labels to NumPy arrays
     X = np.array(all_windows, dtype=np.float32)
     y = np.array(all_labels, dtype=np.int32)
-                 
+          
     # Train model on all data and labels
     model = train_model(X, y, epochs=epochs, batch_size=batch_size)
     
