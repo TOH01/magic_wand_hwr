@@ -22,5 +22,7 @@
         }
     ],
     "sample_rate": 75,
-    "motion_duration": 2.0
+    "motion_duration": 2.0,
+    "output_dir": "src/model/train/tests/out",
+    "name": "test"
 }

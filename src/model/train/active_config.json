@@ -25,5 +25,6 @@
     "motion_duration": 2.0,
     "output_dir": "../../output/",
     "epochs": 10,
-    "batch_size": 32
+    "batch_size": 32,
+    "name": "Active Model"
 }
