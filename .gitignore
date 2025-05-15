@@ -1,2 +1,3 @@
 src/data_gather/libraries
 src/venv
+src/tools/__pycache__/
