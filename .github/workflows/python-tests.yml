@@ -36,11 +36,11 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: test-report
-        path: index.html
-
+        path: report.html
+    
     - name: Deploy report to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .
+        publish_dir: ./path/to/html
         publish_branch: gh-pages
