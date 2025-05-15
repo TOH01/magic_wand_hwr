@@ -1,11 +1,12 @@
 import unittest
-from training import load_motion_data
-from training import create_windows
+from model.train.data_processing import load_motion_data
+from model.train.data_processing import create_windows
 from typing import List
+import os
 
 class TestLoadMotionData(unittest.TestCase):
     def test_load_motion_data(self):
-        test_file = 'training_test_data.txt'
+        test_file = os.path.join(os.path.dirname(__file__), 'data_for_tests.txt')
 
         expected_data: List[List[float]] = [
             [0.569, -0.370, 2.741, -126.099, 49.622, 49.927],
@@ -28,7 +29,10 @@ class TestLoadMotionData(unittest.TestCase):
 class TestCreateWindows(unittest.TestCase):
     def test_create_windows_basic(self):
         # Use loaded data from file as base
-        data = load_motion_data('training_test_data.txt')
+        
+        test_file = os.path.join(os.path.dirname(__file__), 'data_for_tests.txt')
+
+        data = load_motion_data(test_file)
 
         data_long = data * 10
         
