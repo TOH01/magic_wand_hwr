@@ -24,23 +24,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r src/requirements.txt
 
-    - name: Run tests
+    - name: Run tests and generate report
       run: |
-        pytest --html=report.html --self-contained-html
-    
-    - name: Rename report.html to index.html
-      run: |
-        mv report.html index.html
+        mkdir -p test-report
+        pytest --html=test-report/index.html --self-contained-html
 
-    - name: Upload HTML test report artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-report
-        path: report.html
-    
     - name: Deploy report to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./path/to/html
+        publish_dir: ./test-report
         publish_branch: gh-pages
