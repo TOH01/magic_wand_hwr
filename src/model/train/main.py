@@ -170,6 +170,14 @@ def create_full_model_from_config(config: Dict):
     with open(model_path, 'wb') as f:
         f.write(tflite_model)
     print(f"Model saved to: {model_path}")
+    
+    header_path = os.path.join(out_dir, f"{model_name}.h")
+    with open(header_path, 'w') as f:
+        f.write("// Auto-generated model header\n\n")
+        f.write("const unsigned char circle_detector_model[] = {\n  ")
+        f.write(', '.join(f"0x{byte:02x}" for byte in tflite_model))
+        f.write("\n};\n\n")
+        f.write(f"const unsigned int circle_detector_model_len = {len(tflite_model)};\n")
 
 
 if __name__ == '__main__':
