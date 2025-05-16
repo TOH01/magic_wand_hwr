@@ -1,6 +1,6 @@
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras import layers, models
+from tensorflow.keras import layers, models, regularizers
 
 def build_model(window_size: int, num_features: int, num_classes: int) -> tf.keras.Model:
     """
@@ -15,25 +15,19 @@ def build_model(window_size: int, num_features: int, num_classes: int) -> tf.ker
         Compiled Keras model.
     """
     model = models.Sequential([
-        layers.Input(shape=(window_size, num_features)),
-        layers.Conv1D(32, kernel_size=3, activation='relu'),
-        layers.MaxPooling1D(pool_size=2),
-        layers.Conv1D(64, kernel_size=3, activation='relu'),
-        layers.MaxPooling1D(pool_size=2),
-        layers.Flatten(),
-        layers.Dense(64, activation='relu'),
-        layers.Dense(num_classes, activation='softmax')
+        tf.keras.layers.Input(shape=(window_size, num_features)),
+        tf.keras.layers.Conv1D(16, 3, activation='relu'),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(num_classes, activation='softmax')
     ])
 
-    model.compile(
-        optimizer='adam',
-        loss='sparse_categorical_crossentropy',
-        metrics=['accuracy']
-    )
+    model.compile(optimizer='adam',
+                  loss='sparse_categorical_crossentropy',
+                  metrics=['accuracy'])
     return model
 
 
-def train_model(X: np.ndarray, y: np.ndarray, epochs=10, batch_size=32):
+def train_model(X_train: np.ndarray, y_train: np.ndarray,X_test: np.ndarray, y_test: np.ndarray, epochs=10, batch_size=32):
     """
     Train the model on the windowed motion data.
 
@@ -46,12 +40,12 @@ def train_model(X: np.ndarray, y: np.ndarray, epochs=10, batch_size=32):
     Returns:
         Trained Keras model.
     """
-    window_size = X.shape[1]
-    num_features = X.shape[2]
-    num_classes = len(set(y))
-
+    window_size = X_train.shape[1]
+    num_features = X_train.shape[2]
+    num_classes = len(set(y_train))
+    
     model = build_model(window_size, num_features, num_classes)
-    history = model.fit(X, y, epochs=epochs, batch_size=batch_size, validation_split=0.2)
+    history = model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_data=(X_test, y_test))
     print(history.history)         
 
     return model
