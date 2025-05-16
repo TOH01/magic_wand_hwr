@@ -83,22 +83,16 @@ This script:
       "name": "circle",
       "data_path": "tests/training_data/circle_test_data.txt",
       "label": 1,
-      "validation_data_path": "validation_data/circle_validation.txt",
-      "confidence": 0.6
     },
     {
       "name": "v",
       "data_path": "tests/training_data/v_test_data.txt",
       "label": 2,
-      "validation_data_path": "validation_data/v_validation.txt",
-      "confidence": 0.6
     },
     {
       "name": "snake",
       "data_path": "tests/training_data/snake_test_data.txt",
       "label": 3,
-      "validation_data_path": "validation_data/snake_validation.txt",
-      "confidence": 0.6
     },
     {
       "name": "random",
@@ -114,7 +108,7 @@ This script:
 }
 ```
 
-- **motions**: Define each gesture, its data path, optional validation set, label, and confidence threshold
+- **motions**: Define each gesture and its data path
 - **output_dir**: Where model files and training plots will be saved
 - **sample_rate** and **motion_duration**: Must match your Arduino capture settings
 - **epochs**: Training iterations
@@ -186,7 +180,3 @@ Try shaking the board harder to trigger the motion threshold.
 Ensure correct board package and library versions in Arduino IDE.
 
 ---
-
-## 📄 License
-
-This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
