@@ -3,17 +3,23 @@
         {
             "name": "circle",
             "data_path": "tests/training_data/circle_test_data.txt",
-            "label": 1
+            "label": 1,
+            "validation_data_path": "validation_data/circle_validation.txt",
+            "confidence": 0.6
         },
         {
             "name": "v",
             "data_path": "tests/training_data/v_test_data.txt",
-            "label": 2
+            "label": 2,
+            "validation_data_path": "validation_data/v_validation.txt",
+            "confidence": 0.6
         },
         {
             "name": "snake",
             "data_path": "tests/training_data/snake_test_data.txt",
-            "label": 3
+            "label": 3,
+            "validation_data_path": "validation_data/snake_validation.txt",
+            "confidence": 0.6
         },
         {
             "name": "random",

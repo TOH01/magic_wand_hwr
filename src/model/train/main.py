@@ -4,6 +4,7 @@ import numpy as np
 import os
 import json
 import re
+import argparse
 
 from model.train.data_processing import load_motion_data, create_windows, create_label_windows
 from model.train.model import train_model
@@ -172,12 +173,20 @@ def create_full_model_from_config(config: Dict):
 
 
 if __name__ == '__main__':
-    # Path to your config JSON file
-    config_path = os.path.join(os.path.dirname(__file__), 'active_config.json')
-    
-    # Load config dictionary from JSON file
+    parser = argparse.ArgumentParser(description="Train a model using the given config file.")
+    parser.add_argument(
+        '--config',
+        type=str,
+        required=True,
+        help="Path to the JSON config file for training."
+    )
+    args = parser.parse_args()
+
+    config_path = os.path.abspath(args.config)
+    if not os.path.exists(config_path):
+        raise FileNotFoundError(f"Config file not found: {config_path}")
+
     with open(config_path, 'r') as f:
         config = json.load(f)
-    
-    # Call your full model training and saving function with the loaded config
+
     create_full_model_from_config(config)

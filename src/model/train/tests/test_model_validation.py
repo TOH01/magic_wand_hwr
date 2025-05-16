@@ -10,11 +10,6 @@ from model.train.main import create_full_model_from_config, load_normalization_p
 
 class TestModelValidation(unittest.TestCase):
     def test_model_validation_on_motions(self):
-        # Load validation config
-        config_validation_path = os.path.join(os.path.dirname(__file__), 'validation_config.json')
-        print(f"Loading validation config from: {config_validation_path}")
-        with open(config_validation_path, 'r') as f:
-            config_validation = json.load(f)
 
         config_training_path = os.path.join(os.path.dirname(__file__), 'config_for_tests.json')
         print(f"Loading training config from: {config_training_path}")
@@ -26,7 +21,7 @@ class TestModelValidation(unittest.TestCase):
         create_full_model_from_config(config_training)
         print("Training pipeline finished.")
 
-        model_name = config_validation.get("model_name", "model")
+        model_name = config_training.get("name", "model")
         model_path = os.path.join(config_training["output_dir"], f"{model_name}.tflite")
         print(f"Looking for TFLite model at: {model_path}")
         self.assertTrue(os.path.exists(model_path), f"Model file not found at: {model_path}")
@@ -48,15 +43,20 @@ class TestModelValidation(unittest.TestCase):
         input_details = interpreter.get_input_details()
         output_details = interpreter.get_output_details()
 
-        sample_rate = config_validation["sample_rate"]
-        motion_duration = config_validation["motion_duration"]
+        sample_rate = config_training["sample_rate"]
+        motion_duration = config_training["motion_duration"]
 
         print(f"Sample rate: {sample_rate}, Motion duration: {motion_duration}")
 
         # Loop through each test motion
-        for motion in config_validation["validation_motions"]:
+        for motion in config_training["motions"]:
             expected_label = motion["label"]
-            data_path = os.path.join(os.path.dirname(config_validation_path), motion["data_path"])
+            
+            if not motion.get("validation_data_path"):
+                print(f"Skipping motion '{motion.get('name', motion.get('name'))}' — no validation_data_path provided.")
+                continue
+            
+            data_path = os.path.join(os.path.dirname(config_training_path), motion["validation_data_path"])
             confidence_threshold = motion.get("confidence", 0.8)
 
             print(f"\nTesting motion with label={expected_label} from file: {data_path}")
